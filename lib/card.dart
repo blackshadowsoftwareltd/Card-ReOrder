@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerWidget, WidgetRef;
@@ -19,14 +20,20 @@ class ImgCard extends ConsumerWidget {
           duration: const Duration(milliseconds: 800),
           tween: Tween<double>(begin: 0, end: 1),
           builder: (context, v, child) => Opacity(opacity: v, child: child!),
-          child: SizedBox(
-            width: size.width * .18,
-            height: size.height * .5,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                img.path,
-                fit: BoxFit.cover,
+          child: InkWell(
+            onTap: () async =>
+                await ref.read(cardsProvider.notifier).update(img),
+            child: SizedBox(
+              width: Platform.isAndroid || Platform.isIOS
+                  ? size.width
+                  : size.width * .18,
+              height: size.height * .5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  img.path,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

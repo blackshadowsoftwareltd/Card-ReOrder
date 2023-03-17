@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:card_reorder/provider.dart' show Img, cardsProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
@@ -15,7 +16,9 @@ class HomeScreen extends ConsumerWidget {
       // appBar: AppBar(title: const Text('Card Reorder')),
       body: Center(
         child: SizedBox(
-            width: size.width * .32,
+            width: Platform.isAndroid || Platform.isIOS
+                ? size.width-10
+                : size.width * .32,
             height: size.height * .9,
             child: Stack(children: [
               for (Img img in cards) ImgCard(img: img, size: size)
