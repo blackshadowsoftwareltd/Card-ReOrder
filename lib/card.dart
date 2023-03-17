@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerWidget, WidgetRef;
-import 'provider.dart' show Img, cardsProvider;
+import 'provider.dart' show Img, cardsProvider, lock;
 
 class ImgCard extends ConsumerWidget {
   const ImgCard({super.key, required this.img});
@@ -11,7 +11,8 @@ class ImgCard extends ConsumerWidget {
     return Align(
       alignment: img.align,
       child: MouseRegion(
-        onHover: (_) => ref.read(cardsProvider.notifier).update(img),
+        onHover: (_) async =>
+            await ref.read(cardsProvider.notifier).update(img),
         child: TweenAnimationBuilder<double>(
           curve: Curves.easeInCubic,
           duration: const Duration(milliseconds: 300),
