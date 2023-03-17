@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show NotifierProvider, Notifier;
 
 final cardsProvider = NotifierProvider<_Cards, List<Img>>(_Cards.new);
 
@@ -8,13 +9,16 @@ class _Cards extends Notifier<List<Img>> {
   List<Img> build() => [
         Img('assets/flag.jpg', Alignment.bottomRight, null),
         Img('assets/al_aksa.jpg', Alignment.topCenter, null),
-        Img('assets/bird.jpg', Alignment.centerLeft, null),
+        Img('assets/heritage.jpg', Alignment.centerLeft, null),
       ];
+
   Future<void> update(Img img) async {
-    if (state.last.time == img.time) return;
+    if (state.last == img) return;
+
+    img = img.copyWith(time: DateTime.now());
     final list = [
       for (Img e in state)
-        if (e.time == img.time) img.copyWith(time: DateTime.now()) else e
+        if (e.path == img.path) img else e
     ];
     list.sort((a, b) => a.time!.compareTo(b.time!));
     state = [...list];
@@ -28,6 +32,8 @@ class Img {
   Img(this.path, this.align, this.time) {
     time = DateTime.now();
   }
+  @override
+  toString() => 'Img($path, $align, $time)';
 
   @override
   bool operator ==(Object other) => other is Img && time == other.time;

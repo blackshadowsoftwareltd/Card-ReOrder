@@ -32,7 +32,6 @@ dependencies:
     sdk: flutter
 
   flutter_riverpod: ^2.3.2
-  synchronized: ^3.0.1
 
 
   # The following adds the Cupertino Icons font to your application.

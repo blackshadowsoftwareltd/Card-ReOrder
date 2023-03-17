@@ -1,7 +1,7 @@
-import 'package:card_reorder/provider.dart';
+import 'package:card_reorder/provider.dart' show Img, cardsProvider;
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show ConsumerWidget, WidgetRef;
 import 'card.dart' show ImgCard;
 
 class HomeScreen extends ConsumerWidget {
@@ -13,10 +13,14 @@ class HomeScreen extends ConsumerWidget {
     final cards = ref.watch(cardsProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('Card Reorder')),
-      body: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Stack(children: [for (Img img in cards) ImgCard(img: img)])),
+      body: Center(
+        child: SizedBox(
+            width: size.width * .32,
+            height: size.height * .9,
+            child: Stack(children: [
+              for (Img img in cards) ImgCard(img: img, size: size)
+            ])),
+      ),
     );
   }
 }
