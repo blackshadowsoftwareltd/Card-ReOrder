@@ -12,7 +12,7 @@ class HomeScreen extends ConsumerWidget {
     final size = MediaQuery.of(context).size;
     final cards = ref.watch(cardsProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Card Reorder')),
+      // appBar: AppBar(title: const Text('Card Reorder')),
       body: Center(
         child: SizedBox(
             width: size.width * .32,
