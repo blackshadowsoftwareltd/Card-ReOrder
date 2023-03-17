@@ -1,3 +1,4 @@
+import 'package:card_reorder/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,9 +9,14 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
+    final cards = ref.watch(cardsProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('Card Reorder')),
-      body: ImgCard(path: 'assets/flag.jpg'),
+      body: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: Stack(children: [for (Img img in cards) ImgCard(img: img)])),
     );
   }
 }
